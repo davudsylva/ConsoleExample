@@ -1,5 +1,3 @@
-# Sportsbet Risk and Trading Platforms .NET Coding Test: Movie Tickets - Cost Analyser
-
 ## Overview
 In a world of Netflicks, Hoolu, Amayzon Prime and other video streaming services, movie watching customers are dwindling. The powers that be have decided to slash movie ticket prices to entice customers back into cinemas. We have been tasked to build an application that reports the projected cost of movie tickets from historical customer transactions to inform decision making around ticket pricing.
 
