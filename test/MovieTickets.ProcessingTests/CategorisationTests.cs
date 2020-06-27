@@ -23,7 +23,6 @@ namespace MovieTickets.ProcessingTests
             var actualCategory = CategoryHelper.GetCategory(age);
 
             Assert.Equal(expectedCategory, actualCategory);
-
         }
     }
 }

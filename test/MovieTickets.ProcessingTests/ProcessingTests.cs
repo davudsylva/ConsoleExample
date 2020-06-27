@@ -22,11 +22,7 @@ namespace MovieTickets.ProcessingTests
         [InlineData(4, true, "4.4")]
         public async Task ProcessShouldCallObserver(int count, bool isBulk, string expectedCost)
         {
-            var processor = new TransactionBillProcessor();
-
-            var mockObserver = new Mock<IBillObserver>();
-
-            processor.Attach(mockObserver.Object);
+            var testEnv = EstablishEnvironment();
 
             var transactions = new List<TicketTransaction>()
             {
@@ -34,9 +30,23 @@ namespace MovieTickets.ProcessingTests
                 new TicketTransaction() { TransactionId= 99, Customers=new List<TransactionCustomer>() {new TransactionCustomer() { Age=21, Name="Bob"} }}
             };
 
-            await processor.ProcessBatch(transactions);
+            await testEnv.processor.ProcessBatch(transactions);
 
-            mockObserver.Verify(x => x.Consume(It.IsAny<Bill>()), Times.Exactly(2));
+            testEnv.mockObserver.Verify(x => x.Consume(It.IsAny<Bill>()), Times.Exactly(2));
+        }
+
+        // TODO: Add extensive tests here
+
+
+        (TransactionBillProcessor processor, Mock<IBillObserver> mockObserver) EstablishEnvironment()
+        {
+            var processor = new TransactionBillProcessor();
+
+            var mockObserver = new Mock<IBillObserver>();
+
+            processor.Attach(mockObserver.Object);
+
+            return (processor, mockObserver);
         }
     }
 }
